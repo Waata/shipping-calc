@@ -1,0 +1,108 @@
+---
+
+---
+
+<body onload='hideTotal()'>
+  <div id="wrap">
+    <form action="" id="lettersform" onsubmit="return false;">
+      <p>PostNL (TNT Post) letters:
+        without track&trace code and without Insurance (own risk) </p>
+        <div>
+
+           <fieldset>
+                         <label >Country</label>
+            <select id="country" name='country' onchange="calculateTotal()">
+              <option value="None">Select Country</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="World">World****</option>
+            </select>
+            <label >Weight</label>
+            <label class='radiolabel'><input type="radio"  name="selectedletter" value="Gram20" onclick="calculateTotal()" /> 0-20 gram</label><br/>
+            <label class='radiolabel'><input type="radio"  name="selectedletter" value="Gram50" onclick="calculateTotal()" /> 20 - 50 gram</label><br/>
+            <label class='radiolabel'><input type="radio"  name="selectedletter" value="Gram100" onclick="calculateTotal()" /> 50 - 100 gram</label><br/>
+            <label class='radiolabel'><input type="radio"  name="selectedletter" value="Gram250" onclick="calculateTotal()" /> 100 - 250 gram</label><br/>
+            <label class='radiolabel'><input type="radio"  name="selectedletter" value="Gram2000" onclick="calculateTotal()" /> 250 - 2000 gram</label><br/>
+            <br/>
+            <p>
+             
+              <div id="totalPrice"></div>
+            </fieldset>
+          </div>
+          <input type='submit' id='submit' value='Submit' onclick="calculateTotal()" />
+        </div>  
+      </form>
+    </div><!--End of wrap-->
+        
+<!-- Weight  The Netherlands World****
+0 - 20 gram € 0,73  € 1,25
+20 - 50 gram  € 1,46  € 2,50
+50 - 100 gram € 2,19  € 3,75
+100 - 250 gram  € 2,92  € 6,25
+250 - 2000 gram € 3,65  € 11,25 -->
+<script type="text/javascript"> //Set up an associative array
+//The keys represent the size of the letter
+//The values represent the cost of the letter i.e A 10" letter cost's $35
+//
+
+
+// getcountryPrice() finds the price based on the country of the letter.
+// Here, we need to take user's the selection from selection list
+function getcountryPrice() {
+  var countrySelect = document.getElementById('country');
+
+  if (countrySelect.value === "World")
+    letter_prices["Gram250"] = 5;
+    // letter_prices["Gram2000"] = 6;
+  else
+    letter_prices["Gram250"] = 4;
+    // letter_prices["Gram2000"] = 5;
+  //alert(country_prices[countrySelect.value]);
+  return country_prices[countrySelect.value];
+}
+
+var letter_prices = new Array();
+letter_prices["Gram20"]=1;
+letter_prices["Gram50"]=2;
+letter_prices["Gram100"]=3;
+letter_prices["Gram250"]=4;
+letter_prices["Gram2000"]=5;
+
+
+//Set up an associative array 
+//The keys represent the country type
+//The value represents the cost of the country i.e. Lemon country is $5,Dobash country is $9
+//We use this this array when the user selects a country from the form
+var country_prices = new Array();
+country_prices["None"]=0;
+country_prices["Netherlands"]=0.73;
+country_prices["World"]=1.25 ;
+
+// getletterSizePrice() finds the price based on the size of the letter.
+// Here, we need to take user's the selection from radio button selection
+function getletterSizePrice() {
+  var letterRadio = document.getElementsByName('selectedletter');
+
+  for (i=0; i < letterRadio.length; i++) {
+    if (letterRadio[i].checked) {
+      user_input = letterRadio[i].value;
+    }
+  }
+  return letter_prices[user_input];
+}
+
+
+
+function calculateTotal() {
+  var total = getletterSizePrice() * getcountryPrice();
+  var totalEl = document.getElementById('totalPrice');
+
+  document.getElementById('totalPrice').innerHTML = "Your Total is: € " + total;
+  totalEl.style.display = 'block';
+}
+
+function hideTotal() {
+  var totalEl = document.getElementById('totalPrice');
+  totalEl.style.display = 'none';
+}
+</script>
+</body>
