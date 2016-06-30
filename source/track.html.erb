@@ -1,0 +1,286 @@
+---
+
+---
+
+<body onload='hideTotal()'>
+  <div id="wrap">
+    <form action="" id="lettersform" onsubmit="return false;">
+      <p>Shipping cost calculator</p>
+      <div>
+        <fieldset>
+          <label>Country</label>
+          <br>
+          <select id="country" name='country' onchange="calculateTotal()">
+            <option select value="None">Select Region</option>
+            <option select value="Netherlands" onchange="calculateTotal()" >Netherlands</option>
+            <option select value="World" onchange="calculateTotal()" >World****</option>
+            <option select value="Europe1" onchange="calculateTotal()" >Europe*</option>
+            <option select value="Europe2" onchange="calculateTotal()" >Europe**</option>
+          </select>
+          <br>
+          <br>
+
+          <label>Package</label>
+          <select id="package" name='package' onchange="calculateTotal()">
+            <option select value="None">Select package type</option>
+            <option select value="A" onchange="calculateTotal()" >Briefpost</option>
+            <option select value="B" onchange="calculateTotal()" >Pakket zonder </option>
+            <option select value="C" onchange="calculateTotal()" >Pakket Met</option>
+            <option select value="D" onchange="calculateTotal()" >Aangetekend</option>
+          </select>
+ <!--          <br>
+          <label class='radiolabel'><input type="radio"  name="selectedpackage" value="A" onclick="calculateTotal()" /> Briefpost</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedpackage" value="B" onclick="calculateTotal()" /> Pakket zonder Track</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedpackage" value="C" onclick="calculateTotal()" /> Pakket met Track</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedpackage" value="D" onclick="calculateTotal()" /> Aangetekend</label><br/> -->
+          <label>Weight</label>
+          <br>
+          <label class='radiolabel'><input type="radio"  name="selectedletter" value="20" onclick="calculateTotal()" /> 0-20 gram</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedletter" value="50" onclick="calculateTotal()" /> 20 - 50 gram</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedletter" value="100" onclick="calculateTotal()" /> 50 - 100 gram</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedletter" value="250" onclick="calculateTotal()" /> 100 - 250 gram</label><br/>
+          <label class='radiolabel'><input type="radio"  name="selectedletter" value="2000" onclick="calculateTotal()" /> 250 - 2000 gram</label><br/>
+          <br/>
+          <p>
+            <div id="totalPrice"></div>
+          </fieldset>
+        </div>
+        <!-- <input type='submit' id='submit' value='Submit' onclick="calculateTotal()" /> -->
+      </div>
+    </form>
+  </div>
+  <!--End of wrap-->
+
+
+<!-- Weight  The Netherlands World****
+0 - 20 gram € 0,73  € 1,25
+20 - 50 gram  € 1,46  € 2,50
+50 - 100 gram € 2,19  € 3,75
+100 - 250 gram  € 2,92  € 6,25
+250 - 2000 gram € 3,65  € 11,25 -->
+<script type="text/javascript"> 
+// getcountryPrice() finds the price based on the country of the letter.
+// Here, we need to take user's the selection from selection list
+function getcountryPrice() {
+  var countrySelect = document.getElementById('country');
+  if (countrySelect.value==="Netherlands")
+    letter_prices["20"]=6.95,
+    letter_prices["50"]=6.95,
+    letter_prices["100"]=6.95,
+    letter_prices["250"]=13.25,
+    letter_prices["2000"]=13.25;
+  else if (countrySelect.value==="Europe1")
+    letter_prices["20"]=13,
+    letter_prices["50"]=19.5,
+    letter_prices["100"]=25,
+    letter_prices["250"]=34,
+    letter_prices["2000"]=45;
+  else if (countrySelect.value==="Europe2")
+    letter_prices["20"]=18.5,
+    letter_prices["50"]=25,
+    letter_prices["100"]=31,
+    letter_prices["250"]=40,
+    letter_prices["2000"]=55;
+  else if (countrySelect.value==="World")
+    letter_prices["20"]=24.3,
+    letter_prices["50"]=24.4,
+    letter_prices["100"]=58.3,
+    letter_prices["250"]=105.3,
+    letter_prices["2000"]=0;
+  //alert(country_prices[countrySelect.value]);
+  return country_prices[countrySelect.value];
+}
+
+function getpackagePrice() {
+  var packageSelect = document.getElementById('package');
+  if (packageSelect.value==="A")
+    letter_prices["20"]=6.95,
+    letter_prices["50"]=6.95,
+    letter_prices["100"]=6.95,
+    letter_prices["250"]=13.25,
+    letter_prices["2000"]=13.25;
+  else if (packageSelect.value==="B")
+    letter_prices["20"]=13,
+    letter_prices["50"]=19.5,
+    letter_prices["100"]=25,
+    letter_prices["250"]=34,
+    letter_prices["2000"]=45;
+  else if (packageSelect.value==="C")
+    letter_prices["20"]=18.5,
+    letter_prices["50"]=25,
+    letter_prices["100"]=31,
+    letter_prices["250"]=40,
+    letter_prices["2000"]=55;
+  else if (packageSelect.value==="D")
+    letter_prices["20"]=24.3,
+    letter_prices["50"]=24.4,
+    letter_prices["100"]=58.3,
+    letter_prices["250"]=105.3,
+    letter_prices["2000"]=0;
+  //alert(package_prices[packageSelect.value]);
+  return package_prices[packageSelect.value];
+}
+
+var package_prices = new Array();
+package_prices["None"]=0;
+package_prices["A"]=1;
+package_prices["B"]=2;
+package_prices["C"]=3;
+package_prices["D"]=4;
+// var package_prices = new Array();
+// package_prices["None"]=0;
+// package_prices["A"]=1;
+// package_prices["B"]=2;
+// package_prices["C"]=3;
+// package_prices["D"]=4;
+//console.log(letter_prices["Gram250"])
+//The keys represent the size of the letter
+//The values represent the cost of the letter i.e A 10" letter cost's $35
+var letter_prices = new Array();
+letter_prices["None"]=0;
+letter_prices["Gram20"]=1;
+letter_prices["Gram50"]=1;
+letter_prices["Gram100"]=1;
+letter_prices["250"]=1;
+letter_prices["2000"]=1;
+
+//Set up an associative array 
+//The keys represent the country type
+//The value represents the cost of the country i.e. Lemon country is $5,Dobash country is $9
+//We use this this array when the user selects a country from the form
+var country_prices = new Array();
+country_prices["None"]=0;
+country_prices["Netherlands"]=1;
+country_prices["World"]=1;
+country_prices["Europe1"]=1;
+country_prices["Europe2"]=1;
+
+// getletterSizePrice() finds the price based on the size of the letter.
+// Here, we need to take user's the selection from radio button selection
+function getletterSizePrice() {
+  var letterRadio = document.getElementsByName('selectedletter');
+  var user_input = null;
+  for (i=0; i < letterRadio.length; i++) {
+    if (letterRadio[i].checked) {
+      user_input = letterRadio[i].value;
+    }
+  }
+  return letter_prices[user_input];
+}
+
+function getpackageSizePrice() {
+  var packageRadio = document.getElementsByName('selectedpackage');
+  var user_input = null;
+  for (i=0; i < packageRadio.length; i++) {
+    if (packageRadio[i].checked) {
+      user_input = packageRadio[i].value;
+    }
+  }
+  return package_prices[user_input];
+}
+
+
+function calculateTotal() {
+  var total = getletterSizePrice() * getcountryPrice() + getpackagePrice(); //getpackageSizePrice()
+  var totalEl = document.getElementById('totalPrice');
+  document.getElementById('totalPrice').innerHTML = "Your Total is: € " + total;
+  totalEl.style.display = 'block';
+}
+
+function hideTotal() {
+  var totalEl = document.getElementById('totalPrice');
+  totalEl.style.display = 'none';
+}
+</script>
+<style type="text/css">
+
+
+  #wrap{
+    outline-style: double;
+    width:400px;
+    margin:0 auto;
+    text-align:left;
+    margin-top:8px;
+    padding:5px;
+    background:#fff;
+    /*  font-family:AvenirLTStd, Arial, Helvetica, sans-serif; */
+    /*  font-size:13px;    */ 
+    line-height:16px;
+  }
+  #wrap .cont_details fieldset,.cont_order fieldset{
+    margin:10px;
+    padding:20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+  }
+  #wrap legend{
+    font-size:16px;
+    font-family:Georgia, "Times New Roman", Times, serif;
+    color:#000;
+    font-weight:bold;
+    font-style:italic;
+    padding-bottom:10px;
+  }
+  #wrap .cont_details input{
+    margin-bottom:10px;
+    color:#000;
+  }
+  #wrap .input1:hover,.input1:active{
+
+  }
+  #wrap label{
+    display:block;
+    font-size:12px;
+    color:#000;
+    font-weight:bold;
+  }
+  #wrap label.inlinelabel
+  {
+    display:inline;
+  }
+  #wrap .cont_order input{
+    margin-bottom:5px;
+  }
+  #wrap .cont_order p{
+    padding-top:5px;
+  }
+
+  #wrap input[type="radio"]
+  {
+    margin-top:8px;
+    margin-bottom:8px;
+  }
+
+  #wrap input[type="text"]:hover,
+  #wrap input[type="text"]:active {
+    background-color: #FAF398;
+  }
+
+  #wrap input#submit
+  {
+    margin:10px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+
+  #wrap div#totalPrice
+  {
+    padding:10px;
+    font-weight:bold;
+    background-size:2px;
+    background-color:#ff470d;
+  }
+
+  #wrap label.radiolabel
+  {
+    font-weight:normal;
+    display:inline;
+  }
+
+
+</style>
+</body>
