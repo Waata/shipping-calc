@@ -1,0 +1,520 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- For Bootstrap responsiveness -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Shipping calculator</title>
+
+    <link href="stylesheets/all.css" rel="stylesheet" />
+    <script src="javascripts/all.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- Leave those next 4 lines if you care about users using IE8 -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="index">
+
+    <head>
+  <meta charset="utf-8">
+  <title>jQuery UI Tooltip - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script>
+    $(function() {
+      $( document ).tooltip();
+    });
+  </script>
+  <style>
+  </style>
+</head>
+<body>
+<!--   <a href="#" title="Europe 1: Belgium, Denmark (excluding Faroe Islands and Greenland), Germany, France (including Corsica and Monaco), Italy (excluding San Marino and Vatican City), Luxembourg, Austria, Spain (including. Balearics, excluding Canary Islands), United Kingdom (excluding Gibraltar and Channel Islands), Sweden ">Europe *</a>
+  <a href="#" title="** Europe 2: Bulgaria, Estonia, Finland, Hungary, Ireland, Croatia, Latvia, Lithuania, Poland, Portugal (including Azores and Madeira), Romania, Slovenia, Slovakia, Czech Republic ">Europe **</a>
+  <a href="#" title="*** Europe 3: Albania, Andorra, Bosnia and Herzegovina, Canary Islands, Cyprus, Faroe Islands, Gibraltar, Greece, Greenland, Iceland, Channel Islands, Liechtenstein, Macedonia, Malta, Moldova, Montenegro, Norway, Ukraine, San Marino, Serbia, Turkey, Vatican City, Belarus, Switzerland ">Europe ***</a>
+  <a href="#" title="**** World: All other countries">World ****</a>
+-->
+</br>
+<body onload='hideTotal()'>
+  <div id="wrap">
+    <form action="" id="lettersform" onsubmit="return false;">
+<!--         <p>Shipping cost calculator</p>
+  <div> -->
+    <fieldset>
+      <label>Country of destination</label>       
+      <select id="country" name='country' onchange="calculateTotal()">
+        <option select value="None">Select Region</option>
+        <option select value="NL">Netherlands</option>
+        <!--<option select value="EU1" onchange="calculateTotal()" >Europe *</option> -->
+        <option select value="EU1" onchange="calculateTotal()" >Austria</option>
+        <option select value="EU1" onchange="calculateTotal()" >Belgium</option>
+        <option select value="EU1" onchange="calculateTotal()" >Denmark (excluding Faroe Islands and Greenland)</option>
+        <option select value="EU1" onchange="calculateTotal()" >Germany</option>
+        <option select value="EU1" onchange="calculateTotal()" >France (including Corsica and Monaco)</option>
+        <option select value="EU1" onchange="calculateTotal()" >Italy (excluding San-Marino and Vatican City)</option>
+        <option select value="EU1" onchange="calculateTotal()" >Luxembourg</option>
+        <option select value="EU1" onchange="calculateTotal()" >Spain (including. Balearics, excluding Canary Islands)</option>
+        <option select value="EU1" onchange="calculateTotal()" >United Kingdom (excluding Gibraltar and Channel Islands)</option>
+        <option select value="EU1" onchange="calculateTotal()" >Sweden</option>
+        <!--<option select value="EU2" onchange="calculateTotal()" >Europe **</option> -->
+        <option select value="EU2" onchange="calculateTotal()" >Bulgaria</option>
+        <option select value="EU2" onchange="calculateTotal()" >Estonia</option>
+        <option select value="EU2" onchange="calculateTotal()" >Finland</option>
+        <option select value="EU2" onchange="calculateTotal()" >Hungary</option>
+        <option select value="EU2" onchange="calculateTotal()" >Ireland</option>
+        <option select value="EU2" onchange="calculateTotal()" >Croatia</option>
+        <option select value="EU2" onchange="calculateTotal()" >Latvia</option>
+        <option select value="EU2" onchange="calculateTotal()" >Lithuania</option>
+        <option select value="EU2" onchange="calculateTotal()" >Poland</option>
+        <option select value="EU2" onchange="calculateTotal()" >Portugal (including Azores and Madeira)</option>
+        <option select value="EU2" onchange="calculateTotal()" >Romania</option>
+        <option select value="EU2" onchange="calculateTotal()" >Slovenia</option>
+        <option select value="EU2" onchange="calculateTotal()" >Slovakia</option>
+        <option select value="EU2" onchange="calculateTotal()" >Czech Republic</option>
+        <!--         <option select value="EU3" onchange="calculateTotal()" >Europe ***</option> -->
+        <option select value="EU3" onchange="calculateTotal()" >Albania</option>
+        <option select value="EU3" onchange="calculateTotal()" >Andorra</option>
+        <option select value="EU3" onchange="calculateTotal()" >Bosnia and Herzegovina</option>
+        <option select value="EU3" onchange="calculateTotal()" >Canary Island</option>
+        <option select value="EU3" onchange="calculateTotal()" >Cyprus</option>
+        <option select value="EU3" onchange="calculateTotal()" >Faroe Islands</option>
+        <option select value="EU3" onchange="calculateTotal()" >Gibraltar</option>
+        <option select value="EU3" onchange="calculateTotal()" >Greece</option>
+        <option select value="EU3" onchange="calculateTotal()" >Greenland</option>
+        <option select value="EU3" onchange="calculateTotal()" >Iceland</option>
+        <option select value="EU3" onchange="calculateTotal()" >Channel Islands</option>
+        <option select value="EU3" onchange="calculateTotal()" >Liechtenstein</option>
+        <option select value="EU3" onchange="calculateTotal()" >Macedonia</option>
+        <option select value="EU3" onchange="calculateTotal()" >Malta</option>
+        <option select value="EU3" onchange="calculateTotal()" >Moldova</option>
+        <option select value="EU3" onchange="calculateTotal()" >Montenegro</option>
+        <option select value="EU3" onchange="calculateTotal()" >Norway</option>
+        <option select value="EU3" onchange="calculateTotal()" >Ukraine</option>
+        <option select value="EU3" onchange="calculateTotal()" >San Marino</option>
+        <option select value="EU3" onchange="calculateTotal()" >Sebia</option>
+        <option select value="EU3" onchange="calculateTotal()" >Turkey</option>
+        <option select value="EU3" onchange="calculateTotal()" >Vatican City</option>
+        <option select value="EU3" onchange="calculateTotal()" >Belarus</option>
+        <option select value="EU3" onchange="calculateTotal()" >Sqitzerland</option>
+
+        <option select value="EU4" onchange="calculateTotal()" >Europe DPD</option>
+        <option select value="World" onchange="calculateTotal()" >World ****</option>
+        <option select value="World" onchange="calculateTotal()" >America</option>
+      </select>
+      <br>
+    </br>
+    <label>Sort of shipment</label>  
+    <select id="package" name='package' >
+      <option select value="None">Select package type</option>
+      <option select value="D">Letters</option>
+      <option select value="A">Packages without track & trace & without insurance</option>
+      <option select value="B">Packages with track & trace & without insurance(own risk)</option>
+      <option select value="C">Packages with track & trace & with insurance</option>
+
+    </select>
+    <div id="hidden_div" style="display: none;"><label class='radiolabel'><input type="radio"  name="selectedletter" value="2" onclick="calculateTotal()" /> GRAMMMM </label>
+      <label class='radiolabel'><input type="radio"  name="selectedletter" value="5" onclick="calculateTotal()" /> 2 - 5 gram </label>
+      <label class='radiolabel'><input type="radio"  name="selectedletter" value="10" onclick="calculateTotal()" /> 5 - 10 gram</label>
+      <label class='radiolabel'><input type="radio"  name="selectedletter" value="25" onclick="calculateTotal()" /> 10 - 20 gram</label>
+      <label class='radiolabel'><input type="radio"  name="selectedletter" value="200" onclick="calculateTotal()" /> 20 - 30 gram</label>
+      <br/></div>
+      <div id="not_hidden_div" style="display: none;"><label class='radiolabel'><input type="radio"  name="selectedletter" value="20" onclick="calculateTotal()" /> 0 - 2 kg </label>
+        <label class='radiolabel'><input type="radio"  name="selectedletter" value="50" onclick="calculateTotal()" /> 2 - 5 kg</label>
+        <label class='radiolabel'><input type="radio"  name="selectedletter" value="100" onclick="calculateTotal()" /> 5 - 10 kg</label>
+        <label class='radiolabel'><input type="radio"  name="selectedletter" value="250" onclick="calculateTotal()" /> 10 - 20 kg</label>
+        <label class='radiolabel'><input type="radio"  name="selectedletter" value="2000" onclick="calculateTotal()" /> 20 - 30 kg</label>
+        <br/></div>
+        <label>Is your order under 10?</label>
+        <label class='radiolabel'><input type="radio"  name="selectedorder" value="yes" onclick="calculateTotal()" /> yes </label>
+        <label class='radiolabel'><input type="radio"  name="selectedorder" value="no" onclick="calculateTotal()" /> no </label>
+        <p>
+          <div id="totalPrice"></div>
+        </fieldset>
+      </div>
+      <!-- <input type='submit' id='submit' value='Submit' onclick="calculateTotal()" /> -->
+    </div>
+  </form>
+</div>
+
+
+<script type="text/javascript"> 
+//, attr, order
+
+var sortSelect = function (select, attr, order) {
+    if(attr === 'text'){
+        if(order === 'asc'){
+            $(select).html($(select).children('option').sort(function (x, y) {
+                return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
+            }));
+            $(select).get(0).selectedIndex = 0;
+            e.preventDefault();
+        }// end asc
+        if(order === 'desc'){
+            $(select).html($(select).children('option').sort(function (y, x) {
+                return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
+            }));
+            $(select).get(0).selectedIndex = 0;
+            e.preventDefault();
+        }// end desc
+    }
+};
+
+
+//, attr, order
+$(document).ready(function () {
+
+    $('#country').click(function (e) {
+
+        sortSelect('#country', 'text', 'asc');
+
+    }); // event listener click
+
+});
+
+
+  document.getElementById('package').addEventListener('change', function () {
+
+    var show = this.value == "D" ? 'block' : 'none';
+    var unshow = this.value != "D"  ? 'block' : 'none';
+    
+    document.getElementById('hidden_div').style.display = show;
+    document.getElementById('not_hidden_div').style.display = unshow;
+  });
+  var country_prices = new Array();
+  country_prices["None"] = 0;
+  country_prices["NL"] =   1;
+  country_prices["World"] =1;
+  country_prices["EU1"] =  1;
+  country_prices["EU2"] =  1;
+  country_prices["EU3"] =  1;
+  country_prices["EU4"] =  1;
+
+  var package_prices = new Array();
+  package_prices["None"] = 0;
+  package_prices["A"] =    0;
+  package_prices["B"] =    0;
+  package_prices["C"] =    0;
+  package_prices["D"] =    0;
+
+  var letter_prices = new Array();
+  letter_prices["None"] = 0;
+  letter_prices["20"] =   1;
+  letter_prices["50"] =   1;
+  letter_prices["100"] =  1;
+  letter_prices["250"] =  1;
+  letter_prices["2000"] = 1;
+
+  var order_prices = new Array();
+  order_prices["yes"] =   1;
+  order_prices["no"] =   0;
+
+
+// getcountryPrice() finds the price based on the country of the letter.
+// Here, we need to take user's the selection from selection list
+function getcountryPrice() {
+  var countrySelect = document.getElementById('country');
+  //alert(country_prices[countrySelect.value]);
+  return country_prices[countrySelect.value];
+}
+
+function getpackagePrice() {
+  var countrySelect = document.getElementById('country');
+  var packageSelect = document.getElementById('package');
+  if (packageSelect.value === "A" && countrySelect.value === "NL")
+    letter_prices["20"] = 6.95,
+  letter_prices["50"] = 6.95,
+  letter_prices["100"] = 6.95,
+  letter_prices["250"] = 6.95,
+  letter_prices["2000"] = 6.95;
+  else if (packageSelect.value === "B" && countrySelect.value === "NL")
+    letter_prices["20"] = 6.95,
+  letter_prices["50"] = 6.95,
+  letter_prices["100"] = 6.95,
+  letter_prices["250"] = 13.25,
+  letter_prices["2000"] = 13.25;
+  else if (packageSelect.value === "C" && countrySelect.value === "NL")
+    letter_prices["20"] = 8.6,
+  letter_prices["50"] = 8.6,
+  letter_prices["100"] = 8.6,
+  letter_prices["250"] = 14.9,
+  letter_prices["2000"] = 14.9;
+  else if (packageSelect.value === "D" && countrySelect.value === "NL")
+    letter_prices["2"] = 0.73,
+  letter_prices["5"] =  1.46,
+  letter_prices["10"] = 2.19,
+  letter_prices["25"] = 2.92,
+  letter_prices["200"] = 3.65;
+  else if (packageSelect.value === "A" && countrySelect.value === "World")
+    letter_prices["20"] = 18,
+  letter_prices["50"] = 18,
+  letter_prices["100"] = 18,
+  letter_prices["250"] = 18,
+  letter_prices["2000"] = 18;
+  else if (packageSelect.value === "B" && countrySelect.value === "World")
+    letter_prices["20"] = 24.3,
+  letter_prices["50"] = 34.3,
+  letter_prices["100"] = 58.3,
+  letter_prices["250"] = 105.30,
+  letter_prices["2000"] = 0;
+  else if (packageSelect.value === "C" && countrySelect.value === "World")
+    letter_prices["20"] = 25.95,
+  letter_prices["50"] = 35.95,
+  letter_prices["100"] = 59.95,
+  letter_prices["250"] = 106.95,
+  letter_prices["2000"] = 0;
+  else if (packageSelect.value === "D" && countrySelect.value === "World")
+    letter_prices["2"] = 1.25,
+  letter_prices["5"] = 2.5,
+  letter_prices["10"] = 3.75,
+  letter_prices["25"] = 6.25,
+  letter_prices["200"] = 11.25;
+  else if (packageSelect.value === "A" && countrySelect.value === "EU1")
+    letter_prices["20"] = 9,
+  letter_prices["50"] = 9,
+  letter_prices["100"] = 9,
+  letter_prices["250"] = 9,
+  letter_prices["2000"] = 9;
+  else if (packageSelect.value === "B" && countrySelect.value === "EU1")
+    letter_prices["20"] = 13,
+  letter_prices["50"] = 19.5,
+  letter_prices["100"] = 25,
+  letter_prices["250"] = 34,
+  letter_prices["2000"] = 45;
+  else if (packageSelect.value === "C" && countrySelect.value === "EU1")
+    letter_prices["20"] = 14.65,
+  letter_prices["50"] = 21.15,
+  letter_prices["100"] = 26.65,
+  letter_prices["250"] = 35.65,
+  letter_prices["2000"] = 46.65;
+  else if (packageSelect.value === "D" && countrySelect.value === "EU1")
+    letter_prices["2"] = 1.25,
+  letter_prices["5"] = 2.5,
+  letter_prices["10"] = 3.75,
+  letter_prices["25"] = 6.25,
+  letter_prices["200"] = 11.25;
+  else if (packageSelect.value === "A" && countrySelect.value === "EU2")
+    letter_prices["20"] = 11,
+  letter_prices["50"] = 11,
+  letter_prices["100"] = 11,
+  letter_prices["250"] = 11,
+  letter_prices["2000"] = 11;
+  else if (packageSelect.value === "B" && countrySelect.value === "EU2")
+    letter_prices["20"] = 18.5,
+  letter_prices["50"] = 25,
+  letter_prices["100"] = 31,
+  letter_prices["250"] = 40,
+  letter_prices["2000"] = 55;
+  else if (packageSelect.value === "C" && countrySelect.value === "EU2")
+    letter_prices["20"] = 20.15,
+  letter_prices["50"] = 26.15,
+  letter_prices["100"] = 32.15,
+  letter_prices["250"] = 41.65,
+  letter_prices["2000"] = 56.65;
+  else if (packageSelect.value === "D" && countrySelect.value === "EU2")
+    letter_prices["2"] = 1.25,
+  letter_prices["5"] = 2.5,
+  letter_prices["10"] = 3.75,
+  letter_prices["25"] = 6.25,
+  letter_prices["200"] = 11.25;
+  else if (packageSelect.value === "A" && countrySelect.value === "EU3")
+    letter_prices["20"] = 12,
+  letter_prices["50"] = 12,
+  letter_prices["100"] = 12,
+  letter_prices["250"] = 12,
+  letter_prices["2000"] = 12;
+  else if (packageSelect.value === "B" && countrySelect.value === "EU3")
+    letter_prices["20"] = 19.3,
+  letter_prices["50"] = 26.3,
+  letter_prices["100"] = 32.3,
+  letter_prices["250"] = 42.3,
+  letter_prices["2000"] = 0;
+  else if (packageSelect.value === "C" && countrySelect.value === "EU3")
+    letter_prices["20"] = 25.95,
+  letter_prices["50"] = 35.95,
+  letter_prices["100"] = 59.95,
+  letter_prices["250"] = 106.95,
+  letter_prices["2000"] = 0;
+  else if (packageSelect.value === "D" && countrySelect.value === "EU3")
+    letter_prices["2"] = 1.25,
+  letter_prices["5"] = 2.5,
+  letter_prices["10"] = 3.75,
+  letter_prices["25"] = 6.25,
+  letter_prices["200"] = 11.25;
+  else if (packageSelect.value === "A" && countrySelect.value === "EU4")
+    letter_prices["20"] = 100,
+  letter_prices["50"] = 25,
+  letter_prices["100"] = 375,
+  letter_prices["250"] = 625,
+  letter_prices["2000"] = 1125;
+  // alert(letter_prices[letterSelect.value]);
+  return package_prices[packageSelect.value];
+}
+
+// getletterSizePrice() finds the price based on the size of the letter.
+// Here, we need to take user's the selection from radio button selection
+function getletterSizePrice() {
+  var letterRadio = document.getElementsByName('selectedletter');
+  var user_input = null;
+  for (i = 0; i < letterRadio.length; i++) {
+    if (letterRadio[i].checked) {
+      user_input = letterRadio[i].value;
+    }
+  }
+  return letter_prices[user_input];
+}
+
+// function getpackageSizePrice() {
+//   var packageRadio = document.getElementsByName('selectedpackage');
+//   var user_input = null;
+//   for (i = 0; i < packageRadio.length; i++) {
+//     if (packageRadio[i].checked) {
+//       user_input = packageRadio[i].value;
+//     }
+//   }
+//   return package_prices[user_input];
+// }
+
+function getorderSizePrice() {
+  var orderRadio = document.getElementsByName('selectedorder');
+  var user_input = null;
+  for (i = 0; i < orderRadio.length; i++) {
+    if (orderRadio[i].checked) {
+      user_input = orderRadio[i].value;
+    }
+  }
+  return order_prices[user_input];
+}
+
+function calculateTotal() {
+  var total = getletterSizePrice() * getcountryPrice() + getpackagePrice() +getorderSizePrice();
+
+  var totalEl = document.getElementById('totalPrice');
+  // if total == NaN
+  //   totalEl.style.display = 'none';
+  // else
+  document.getElementById('totalPrice').innerHTML = "Your Total is: € " + total;
+  totalEl.style.display = 'block';
+}
+
+function hideTotal() {
+  var totalEl = document.getElementById('totalPrice');
+  totalEl.style.display = 'none';
+}
+
+var quantity=parseFloat($('#totalPrice').val());    
+if(isNaN(quantity)){
+    quantity=0;
+}
+</script>
+<style type="text/css">
+
+  #wrap{
+    outline-style: double;
+    width:400px;
+    margin:0 auto;
+    text-align:left;
+    margin-top:8px;
+    padding:5px;
+    background:#fff;
+    /*  font-family:AvenirLTStd, Arial, Helvetica, sans-serif; */
+    /*  font-size:13px;    */ 
+    line-height:16px;
+  }
+  #wrap .cont_details fieldset,.cont_order fieldset{
+    margin:10px;
+    padding:20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+  }
+  #wrap legend{
+    font-size:16px;
+    font-family:Georgia, "Times New Roman", Times, serif;
+    color:#000;
+    font-weight:bold;
+    font-style:italic;
+    padding-bottom:10px;
+  }
+  #wrap .cont_details input{
+    margin-bottom:10px;
+    color:#000;
+  }
+  #wrap .input1:hover,.input1:active{
+
+  }
+  #wrap label{
+    display:block;
+    font-size:12px;
+    color:#000;
+    font-weight:bold;
+  }
+  #wrap label.inlinelabel
+  {
+    display:inline;
+  }
+  #wrap .cont_order input{
+    margin-bottom:5px;
+  }
+  #wrap .cont_order p{
+    padding-top:5px;
+  }
+
+  #wrap input[type="radio"]
+  {
+    margin-top:8px;
+    margin-bottom:8px;
+  }
+
+  #wrap input[type="text"]:hover,
+  #wrap input[type="text"]:active {
+    background-color: #FAF398;
+  }
+
+  #wrap input#submit
+  {
+    margin:10px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+
+  #wrap div#totalPrice
+  {
+    padding:10px;
+    font-weight:bold;
+    background-color:#a0bdda;
+  }
+}
+
+#wrap label.radiolabel
+{
+  font-weight:normal;
+  display:inline;
+}
+.label {
+  display: inline-block;
+  width: auto;
+}
+.radiolabel {
+  letter-spacing: 2px;
+}
+</style>
+</body>
+
+  </body>
+</html>
